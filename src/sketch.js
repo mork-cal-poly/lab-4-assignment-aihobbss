@@ -4,6 +4,7 @@ let g = 400;
 let r1 = 0;
 let armx = x;
 let sceneChanged = false;
+let clicked = false;
 
 function setup() {
   createCanvas(800, 800);
@@ -12,17 +13,17 @@ function setup() {
 function draw() {
   background(220);
    //changing scene
-  push();
+
   if (x < 220 && !sceneChanged) {
     x = 210;
     scene2();
     sceneChanged = true;
   }
-  pop(); 
+
   if (!sceneChanged) { // If the scene hasn't changed yet
     scene1();
       //moving cat
-    push();
+
     drawCreature(x,270, 0.40,r1)
     x = x - 0.3
     armx = x - 0.3
@@ -39,11 +40,17 @@ function draw() {
     g -= 0.4;
     if (x1 <295) {
       x1 = 295
+    }
+    if (clicked) {
       armx = 220
       r1 = PI/4
+    } else {
+      armx = x1 - 0.7;
+      r1 = 0;
     }
-    if (g < 305) {
+    if (clicked) {
       push();
+      scale(2);
       translate(100,200);
       fill(255);
       ellipse(130, 30, 20, 20);
@@ -51,12 +58,14 @@ function draw() {
       fill(0);
       ellipse(130, 30, 5, 5);
       ellipse(100, 30, 5, 5);
+      pop();
     }
   }
 }
 function scene1(){
-  scale(2)
   push();
+  scale(2)
+
   background('pink');
   translate(200,200)
   stroke(0);
@@ -85,8 +94,11 @@ function scene1(){
   pop();
 
   push();
+  scale(2);
   translate(200,200)
   stroke(0);
+
+  //table
 //light color table legs(left then right)
   fill('#7A5548')
   rect(-140,95,15,80)
@@ -111,6 +123,7 @@ function scene1(){
   pop();
 
   push();
+  scale(2);
   translate(150,210)
   scale(0.8)
   //flowerstems
@@ -206,9 +219,12 @@ function drawArm() {
   pop();
 }
 function drawCreature(x,y,s,r1) {
+  push();
+  scale(2);
   //moving arm
   
   push();
+
   translate(armx,y);
   rotate(r1);
   scale(s);
@@ -277,12 +293,16 @@ function drawCreature(x,y,s,r1) {
   quad(90, -10, 90, 10, 100, 10, 100, -10);
   quad(90, 10, 83, 15, 100, 15, 100, 10);
   pop();
+  
+  pop();
 }
 
 function scene2(){
-  scale(2)
-  background('rgb(253,131,153)');
   push();
+  scale(2)
+  push();
+  background('rgb(253,131,153)');
+
   translate(200,200)
   fill('#7A5548')
   rect(-200,100,400,100)
@@ -346,7 +366,7 @@ function scene2(){
   push();
   strokeWeight(0.75);
   translate(100,200)
-  if (g < 325) {
+  if (clicked) {
     surprise(45,-25,1,0)
     surprise(25,-55,1.2,0)
     surprise(7,-95,1.6,-PI/7)
@@ -363,4 +383,15 @@ function scene2(){
     flower1(-20,-20,0.8)
   }
   pop();
+  
+  pop();
+}
+function mouseClicked() {
+  if (mouseX > 75 &&
+    mouseX < 305 &&
+    mouseY < 670 &&
+    mouseY > 150
+    ) {
+      clicked = !clicked;
+    }
 }
