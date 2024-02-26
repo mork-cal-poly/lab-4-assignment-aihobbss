@@ -11,7 +11,62 @@ function setup() {
 
 function draw() {
   background(220);
-drawCreature(x, 270, 0.40, r1)
+//background
+scale(2)
+  push();
+  background('pink');
+  translate(200,200)
+  stroke(0);
+  //wall left
+  fill('rgb(253,131,153)')
+  quad(-200,-200,-200,200,-80,75,-80,-55)
+  //wall right
+  quad(200,-200,200,200,80,75,80,-55)
+  rect(-80,-55,160,130)
+  //window
+  fill('powderblue')
+  rect(-10,-20,60,40)
+  //grass outside
+  fill('green')
+  rect(-10,10,60,10)
+  
+  //window frame
+  fill('#AE6800')
+  quad(-13,-23,-10,-20,50,-20,53,-23)
+  quad(-10, 20,-13, 23, 53, 23, 50, 20)
+  quad(-13,-23,-10,-20,-10,20, -13,23)
+  quad(50,-20,53,-23,53,23,50,20)
+  //crossing-frame
+  rect(-10,-1,60,3)
+  rect(19,-20,3,40)
+  pop();
+
+  push();
+  translate(200,200)
+  stroke(0);
+//light color table legs(left then right)
+  fill('#7A5548')
+  rect(-140,95,15,80)
+  rect(115,95,15,80)
+//dark color in back
+  fill('#503B34')
+  rect(-70,50,12,80)
+  rect(58,50,12,80)
+//dark color 3d table legs(front right)
+  quad(-125,95,-125,175,-120,168,-120,95)
+//front left
+  quad(115,95,115,175,110,168,110,95)
+//back left
+  quad(-58,50,-58,130,-56,125,-56,50)
+//back right
+  quad(58,50,58,130,56,125,56,50)
+//tabletop
+  fill('#795548')
+  quad(-70,50,-140,90,130,90,70,50)
+//tabletop 3d
+  rect(-140,90,270,8)
+  pop();
+
 //vase
  //vase
  push();
@@ -70,6 +125,7 @@ drawCreature(x, 270, 0.40, r1)
  }
  pop();
 }
+
 function drawCreature(x,y,s,r1) {
   //moving arm
   
