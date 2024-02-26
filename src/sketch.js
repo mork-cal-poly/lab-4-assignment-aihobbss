@@ -12,6 +12,63 @@ function setup() {
 function draw() {
   background(220);
 drawCreature(x, 270, 0.40, r1)
+//vase
+ //vase
+ push();
+ translate (100,200)
+ noStroke();
+ fill(200)
+ quad(-47,-10,-25,30,25,30,47,-10)
+ ellipse(0,70,90,140)
+ fill(255)
+ rotate(PI/7)
+ ellipse(-9,40,15,30)
+ rotate(-PI/7)
+ fill(200)
+ stroke(100)
+ strokeWeight(5)
+ arc(0,70,90,140,-PI/3,PI/2)
+ line(29,18,47,-10)
+ pop();
+ 
+ //flower stems
+ push();
+ translate(100,200)
+ stroke('rgb(6,74,6)');
+ strokeWeight(3)
+ noFill();
+ curve(-34,15,-22,-7,-55,-30,-74,-22)
+ curve(-24,15,-9,-7,-30,-75,-60,-60)
+ line(0,-7,7,-95)
+ line(10,-7,25,-55)
+ curve(15,9,30,-7,45,-25,22,15)
+ //vase brim
+ stroke(100)
+ strokeWeight(5)
+ curve(-55,-50,-47,-10,47,-10,55,-50)
+ pop();
+ 
+ //surprise
+ push();
+ strokeWeight(0.75);
+ translate(100,200)
+ if (g < 325) {
+   surprise(45,-25,1,0)
+   surprise(25,-55,1.2,0)
+   surprise(7,-95,1.6,-PI/7)
+   surprise(-30,-75,1.7,0)
+   surprise(-55,-30,1.6,PI/7)
+   surprise(-20,-20,1.2,0)
+ }
+ else {
+   flower1(45,-25,0.7)
+   flower1(25,-55,0.8)
+   flower1(7,-95,0.6)
+   flower1(-30,-75,0.7)
+   flower1(-55,-30,0.6)
+   flower1(-20,-20,0.8)
+ }
+ pop();
 }
 function drawCreature(x,y,s,r1) {
   //moving arm
