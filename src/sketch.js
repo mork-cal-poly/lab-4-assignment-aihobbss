@@ -103,6 +103,8 @@ scale(2)
  curve(-55,-50,-47,-10,47,-10,55,-50)
  pop();
  
+ drawCreature(x,270, 0.40,r1)
+ 
  //surprise
  push();
  strokeWeight(0.75);
