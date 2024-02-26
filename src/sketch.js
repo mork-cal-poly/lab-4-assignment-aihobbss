@@ -3,16 +3,59 @@ let x1 = 400;
 let g = 400;
 let r1 = 0;
 let armx = x;
+let sceneChanged = false;
 
 function setup() {
-  let myCanvas = createCanvas(800, 800);
-  myCanvas.parent("canvas-parent");
+  createCanvas(800, 800);
 }
 
 function draw() {
   background(220);
-//background
-scale(2)
+   //changing scene
+  push();
+  if (x < 220 && !sceneChanged) {
+    x = 210;
+    scene2();
+    sceneChanged = true;
+  }
+  pop(); 
+  if (!sceneChanged) { // If the scene hasn't changed yet
+    scene1();
+      //moving cat
+    push();
+    drawCreature(x,270, 0.40,r1)
+    x = x - 0.3
+    armx = x - 0.3
+     if (x < 220) {
+      x = 220;
+      sceneChanged = true;
+    }
+  } else {
+    scene2();
+    //moving cat for scene 2
+    drawCreature(x1, 320, 1, r1);
+    x1 -= 0.7;
+    armx =x1 - 0.7;
+    g -= 0.4;
+    if (x1 <295) {
+      x1 = 295
+      armx = 220
+      r1 = PI/4
+    }
+    if (g < 305) {
+      push();
+      translate(100,200);
+      fill(255);
+      ellipse(130, 30, 20, 20);
+      ellipse(100, 30, 20, 20);
+      fill(0);
+      ellipse(130, 30, 5, 5);
+      ellipse(100, 30, 5, 5);
+    }
+  }
+}
+function scene1(){
+  scale(2)
   push();
   background('pink');
   translate(200,200)
@@ -67,67 +110,101 @@ scale(2)
   rect(-140,90,270,8)
   pop();
 
-//vase
- //vase
- push();
- translate (100,200)
- noStroke();
- fill(200)
- quad(-47,-10,-25,30,25,30,47,-10)
- ellipse(0,70,90,140)
- fill(255)
- rotate(PI/7)
- ellipse(-9,40,15,30)
- rotate(-PI/7)
- fill(200)
- stroke(100)
- strokeWeight(5)
- arc(0,70,90,140,-PI/3,PI/2)
- line(29,18,47,-10)
- pop();
- 
- //flower stems
- push();
- translate(100,200)
- stroke('rgb(6,74,6)');
- strokeWeight(3)
- noFill();
- curve(-34,15,-22,-7,-55,-30,-74,-22)
- curve(-24,15,-9,-7,-30,-75,-60,-60)
- line(0,-7,7,-95)
- line(10,-7,25,-55)
- curve(15,9,30,-7,45,-25,22,15)
- //vase brim
- stroke(100)
- strokeWeight(5)
- curve(-55,-50,-47,-10,47,-10,55,-50)
- pop();
- 
- drawCreature(x,270, 0.40,r1)
- 
- //surprise
- push();
- strokeWeight(0.75);
- translate(100,200)
- if (g < 325) {
-   surprise(45,-25,1,0)
-   surprise(25,-55,1.2,0)
-   surprise(7,-95,1.6,-PI/7)
-   surprise(-30,-75,1.7,0)
-   surprise(-55,-30,1.6,PI/7)
-   surprise(-20,-20,1.2,0)
- }
- else {
-   flower1(45,-25,0.7)
-   flower1(25,-55,0.8)
-   flower1(7,-95,0.6)
-   flower1(-30,-75,0.7)
-   flower1(-55,-30,0.6)
-   flower1(-20,-20,0.8)
- }
- pop();
+  push();
+  translate(150,210)
+  scale(0.8)
+  //flowerstems
+  stroke(0,255,0);
+  noFill();
+  curve(-24,15,-12,10,-19,0,-24,-2)
+  curve(-24,15,-5,10,-12,-5,-15,-9)
+  line(0,10,-4,-5)
+  line(3,10,5,-15)
+  curve(15,9,10,10,19,5,22,15)
+
+//vase 
+  noStroke();
+  fill(255)
+  quad(-17,10,-5,30,5,30,17,10)
+  ellipse(0,50,30,55)
+//flowers
+  flower(19,5,1.3)
+  flower(-19,0,1.4)
+  flower(-12,-5,1.2)
+  flower(-4,-5,1.5)
+  flower(5,-15,1.6)
+  pop();
+
+}
+function flower(flowerx,flowery,flowers) {
+  push();
+  translate(flowerx,flowery)
+  scale(flowers)
+  noStroke();
+  fill('purple') 
+  ellipse(0,0,3,8)
+  rotate(PI/2);
+  ellipse(0,0,3,8)
+  fill('yellow')
+  ellipse(0,0,3)
+  pop();
 }
 
+function surprise(grenadex,grenadey,grenades,grenader) {
+  push();
+  translate(grenadex,grenadey)
+  rotate(grenader)
+  scale(grenades)
+  noStroke();
+  fill('green')
+  rect(0,0,5,5)
+  strokeWeight(2)
+  stroke('rgb(1,63,1)')
+  line(0,0,5,0)
+  stroke(100)
+  line(0,5,5,5)
+  strokeWeight(1)
+  fill(100)
+  quad(6,0,10,5,12,10,12,5)
+  noFill()
+  ellipse(5,3,4,4)
+  //body 
+  fill('rgb(1,63,1)')
+  ellipse(2.5,17,17.5,22)
+  noFill()
+  strokeWeight(0.5)
+  //horizontal lines
+  arc(5,17,14.5,28,2*PI/3, 4*PI/3)
+  arc(0,17,14.5,28,5*PI/3, PI/3)
+  line(2.5,5,2.5,28)
+  //vertical lines
+  arc(2.5,17,28,14.5,5*PI/4, 7*PI/4)
+  arc(2.5,17,28,14.5,PI/4, 3*PI/4)
+  line(-6,17,11,17)
+  pop();
+}
+  
+function flower1(flowerx1,flowery1,flowers1) {
+  push();
+  noStroke();
+  translate(flowerx1,flowery1)
+  scale(flowers1)
+  fill('purple') 
+  ellipse(0,0,20,50)
+  rotate(PI/2);
+  ellipse(0,0,20,50)
+  fill('yellow')
+  ellipse(0,0,20)
+  pop();
+  
+}
+function drawArm() {
+  push();
+  quad(-65,-70,-85,-7,-74,-7,-50,-70)
+  quad(-85,-7,-94,4,-83,4,-74,-7)
+  ellipse(-92,4,16,9)
+  pop();
+}
 function drawCreature(x,y,s,r1) {
   //moving arm
   
@@ -201,12 +278,89 @@ function drawCreature(x,y,s,r1) {
   quad(90, 10, 83, 15, 100, 15, 100, 10);
   pop();
 }
- 
-//moving arm for creature
-function drawArm() {
+
+function scene2(){
+  scale(2)
+  background('rgb(253,131,153)');
   push();
-  quad(-65,-70,-85,-7,-74,-7,-50,-70)
-  quad(-85,-7,-94,4,-83,4,-74,-7)
-  ellipse(-92,4,16,9)
+  translate(200,200)
+  fill('#7A5548')
+  rect(-200,100,400,100)
+  pop();
+  
+  push();
+  translate(300,50)
+  scale(7)
+  stroke('#503B34')
+  strokeWeight(0.5);
+  //window
+  fill('powderblue')
+  rect(-10,-20,60,40)
+  //window frame
+  fill('#AE6800')
+  quad(-13,-23,-10,-20,50,-20,53,-23)
+  quad(-10, 20,-13, 23, 53, 23, 50, 20)
+  quad(-13,-23,-10,-20,-10,20, -13,23)
+  quad(50,-20,53,-23,53,23,50,20)
+  //crossing-frame
+  rect(-10,-1,60,3)
+  rect(19,-20,3,40)
+  pop();
+  
+  //vase
+  push();
+  translate (100,200)
+  noStroke();
+  fill(200)
+  quad(-47,-10,-25,30,25,30,47,-10)
+  ellipse(0,70,90,140)
+  fill(255)
+  rotate(PI/7)
+  ellipse(-9,40,15,30)
+  rotate(-PI/7)
+  fill(200)
+  stroke(100)
+  strokeWeight(5)
+  arc(0,70,90,140,-PI/3,PI/2)
+  line(29,18,47,-10)
+  pop();
+  
+  //flower stems
+  push();
+  translate(100,200)
+  stroke('rgb(6,74,6)');
+  strokeWeight(3)
+  noFill();
+  curve(-34,15,-22,-7,-55,-30,-74,-22)
+  curve(-24,15,-9,-7,-30,-75,-60,-60)
+  line(0,-7,7,-95)
+  line(10,-7,25,-55)
+  curve(15,9,30,-7,45,-25,22,15)
+  //vase brim
+  stroke(100)
+  strokeWeight(5)
+  curve(-55,-50,-47,-10,47,-10,55,-50)
+  pop();
+  
+  //surprise
+  push();
+  strokeWeight(0.75);
+  translate(100,200)
+  if (g < 325) {
+    surprise(45,-25,1,0)
+    surprise(25,-55,1.2,0)
+    surprise(7,-95,1.6,-PI/7)
+    surprise(-30,-75,1.7,0)
+    surprise(-55,-30,1.6,PI/7)
+    surprise(-20,-20,1.2,0)
+  }
+  else {
+    flower1(45,-25,0.7)
+    flower1(25,-55,0.8)
+    flower1(7,-95,0.6)
+    flower1(-30,-75,0.7)
+    flower1(-55,-30,0.6)
+    flower1(-20,-20,0.8)
+  }
   pop();
 }
